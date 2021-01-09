@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sfdevs.marvel.model.User;
-import com.sfdevs.marvel.repository.UserRepository;
 import com.sfdevs.marvel.service.UserService;
 
 
@@ -29,11 +28,6 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
-	//*****
-	//@Autowired
-	//private UserRepository userRepository;
-	//*****
 	
 	/*
 	 * get all users
