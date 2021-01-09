@@ -29,6 +29,7 @@ public class UserController {
 	@Autowired
 	private UserRepository userRepository;
 	
+	
 	/*
 	 * get all users
 	 */
@@ -37,12 +38,14 @@ public class UserController {
 		return this.userRepository.findAll();
 	}
 	
+	
 	/*
 	 * find a user by his Id
 	 */
 	@GetMapping("users/{id}")
 	public ResponseEntity<User> getUserById(@PathVariable(value = "id") Long userId )
 	throws ResourceNotFoundException {
+		
 		User user = userRepository.findById(userId).orElseThrow(() ->
 				new ResourceNotFoundException("User not found for the id :: " 
 						+userId));
@@ -65,6 +68,7 @@ public class UserController {
 	@PutMapping("users/{id}")
 	public ResponseEntity<User> updateUser(@PathVariable(value = "id") Long userId, 
 			@Valid @RequestBody User userDetails){
+		
 		User user = userRepository.findById(userId).orElseThrow(() ->
 		new ResourceNotFoundException("User not found for the id :: " 
 				+userId));
@@ -84,6 +88,7 @@ public class UserController {
 	 */
 	@DeleteMapping("users/{id}")
 	public Map<String, Boolean> deleteUser(@PathVariable(value = "id") Long userId){
+		
 		User user = userRepository.findById(userId).orElseThrow(() ->
 		new ResourceNotFoundException("User not found for the id :: " 
 				+userId));
