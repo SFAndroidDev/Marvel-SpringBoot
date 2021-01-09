@@ -68,20 +68,8 @@ public class UserController {
 	 * update a user in DB
 	 */
 	@PutMapping("users/{id}")
-	public ResponseEntity<User> updateUser(@PathVariable(value = "id") Long userId, 
-			@Valid @RequestBody User userDetails){
-		
-		User user = userRepository.findById(userId).orElseThrow(() ->
-		new ResourceNotFoundException("User not found for the id :: " 
-				+userId));
-		
-		// update infos
-		user.setFirstname(userDetails.getFirstname());
-		user.setLastname(userDetails.getLastname());
-		user.setEmail(userDetails.getEmail());
-		
-		// saving the user back to the DB
-		return ResponseEntity.ok(this.userRepository.save(user));
+	public User update(@PathVariable(value = "id") Long userId, @Valid @RequestBody User user) {
+		return userService.update(userId, user);
 	}
 	
 	

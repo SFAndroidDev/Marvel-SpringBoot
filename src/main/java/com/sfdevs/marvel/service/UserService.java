@@ -32,18 +32,35 @@ public class UserService {
 		return user;
 	}
 	
+	
 	// add a user
 	public User insert(User user) {
 		return userRepository.save(user);
 	}
 	
+	
 	// update a user
-	public User update(User user) {
-		if (user != null && userRepository.existsById(user.getId())) {
-			return userRepository.save(user);
-		} else {
-			return null;
+	public User update(Long id, User user) {
+		
+		User userUpdated = this.findById(id);
+		
+		// update informations
+		userUpdated.setFirstname(user.getFirstname());
+		userUpdated.setLastname(user.getLastname());
+		userUpdated.setEmail(user.getEmail());
+		
+		return this.insert(userUpdated);
+		
+	}
+	
+	// delete a user
+	public boolean deleteById(Long id) {
+		if (!userRepository.existsById(id)) {
+			return false;
 		}
+		
+		userRepository.deleteById(id);
+		return true;
 	}
 	
 }
