@@ -31,8 +31,8 @@ public class UserController {
 	private UserService userService;
 	
 	//*****
-	@Autowired
-	private UserRepository userRepository;
+	//@Autowired
+	//private UserRepository userRepository;
 	//*****
 	
 	/*
@@ -77,18 +77,14 @@ public class UserController {
 	 * delete a user from DB
 	 */
 	@DeleteMapping("users/{id}")
-	public Map<String, Boolean> deleteUser(@PathVariable(value = "id") Long userId){
+	public Map<String, Boolean> deleteById(@PathVariable("id") long id) {
 		
-		User user = userRepository.findById(userId).orElseThrow(() ->
-		new ResourceNotFoundException("User not found for the id :: " 
-				+userId));
-		
-		this.userRepository.delete(user);
+		boolean result = userService.deleteById(id);
 		
 		Map<String, Boolean> response = new HashMap<>();
-		response.put("deleted", Boolean.TRUE);
-		
+		response.put("deleted", result);
 		return response;
+		
 	}
 		
 	
