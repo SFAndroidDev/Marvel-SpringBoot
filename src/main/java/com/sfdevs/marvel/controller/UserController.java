@@ -6,9 +6,13 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,15 +23,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sfdevs.marvel.model.User;
+import com.sfdevs.marvel.service.IMarvelApiService;
 import com.sfdevs.marvel.service.UserService;
 
 
 @RestController
+@CrossOrigin(value = "http://localhost:4200")
 @RequestMapping("/my-api/v1/")
 public class UserController {
+	
+	private static final Logger LOG =
+            LoggerFactory.getLogger(UserController.class);
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private IMarvelApiService characterService;
 	
 	/*
 	 * get all users
@@ -36,7 +48,6 @@ public class UserController {
 	public List<User> getAllUser(){
 		return this.userService.findAll();
 	}
-	
 	
 	/*
 	 * find a user by his Id
@@ -79,6 +90,20 @@ public class UserController {
 		response.put("deleted", result);
 		return response;
 		
+	}
+	
+	/***
+	 * Get Characters Info
+	 * @return character data wrapper
+	 */
+	@GetMapping("/characters")
+	public ResponseEntity<?> getCharacters() {
+		try {
+			return ResponseEntity.ok(characterService.getCharacters());
+		}catch (Exception e) {
+			LOG.error(e.getMessage());
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.NO_CONTENT);
+		}
 	}
 		
 	

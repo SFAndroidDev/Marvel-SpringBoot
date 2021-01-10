@@ -15,9 +15,11 @@ import com.sfdevs.marvel.model.CharacterDataWrapper;
  *
  */
 @Service("charactersService")
-public class MarvelServiceImp implements IMarvelApiService {
+public class MarvelApiServiceImp implements IMarvelApiService {
 
-	private static final Logger LOG = LoggerFactory.getLogger(MarvelServiceImp.class);
+	private static final Logger LOG = LoggerFactory.getLogger(MarvelApiServiceImp.class);
+	
+	CharacterDataWrapper resultCharacters = null;
 	
 	@Value("${config.ts}")
 	private int ts;
@@ -30,12 +32,30 @@ public class MarvelServiceImp implements IMarvelApiService {
 	
 	RestTemplate restTemplate = null;
 	
+	/***
+	 * Constructor
+	 */
+	public MarvelApiServiceImp() {
+		restTemplate = new RestTemplate();
+	}
+	
 	
 	@Override
 	public CharacterDataWrapper getCharacters() {
-		String url = "https://gateway.marvel.com/v1/public/characters?ts=" + ts + "&apikey=" + apikey + "&hash=" + hash;
+		String url = "https://gateway.marvel.com:443/v1/public/characters?ts=" + ts + "&apikey=" + apikey + "&hash=" + hash;
 		LOG.info("Getting the Character data wrapper");
-		return restTemplate.getForObject(url, CharacterDataWrapper.class);
+		
+		resultCharacters = restTemplate.getForObject(url, CharacterDataWrapper.class);
+		
+		
+		return resultCharacters;
 	}
+
+
+	/*
+	public void setCharacters(CharacterDataWrapper characterDataWrapper) {
+		// TODO Auto-generated method stub
+		
+	}*/
 
 }

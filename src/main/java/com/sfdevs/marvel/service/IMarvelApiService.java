@@ -14,4 +14,5 @@ public interface IMarvelApiService {
 	 * @return Character wrapper object
 	 */
 	CharacterDataWrapper getCharacters();
+	
 }
