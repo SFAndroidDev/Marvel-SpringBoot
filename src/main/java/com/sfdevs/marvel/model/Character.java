@@ -2,14 +2,23 @@ package com.sfdevs.marvel.model;
 
 import java.util.ArrayList;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
 public class Character {
 
-	 private float id;
+	private float id;
 	 private String name;
 	 private String description;
 	 private String modified;
 	 Thumbnail thumbnail;
 	 private String resourceURI;
+	 
 	 Comics comics;
 	 CharacterSerie series;
 	 Stories stories;

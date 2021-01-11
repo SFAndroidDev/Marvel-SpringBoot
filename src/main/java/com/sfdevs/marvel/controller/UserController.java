@@ -29,7 +29,7 @@ import com.sfdevs.marvel.service.UserService;
 
 @RestController
 @CrossOrigin(value = "http://localhost:4200")
-@RequestMapping("/my-api/v1/")
+@RequestMapping("/my-api/v1/u")
 public class UserController {
 	
 	private static final Logger LOG =
@@ -37,9 +37,6 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
-	@Autowired
-	private IMarvelApiService characterService;
 	
 	/*
 	 * get all users
@@ -92,19 +89,6 @@ public class UserController {
 		
 	}
 	
-	/***
-	 * Get Characters Info
-	 * @return character data wrapper
-	 */
-	@GetMapping("/characters")
-	public ResponseEntity<?> getCharacters() {
-		try {
-			return ResponseEntity.ok(characterService.getCharacters());
-		}catch (Exception e) {
-			LOG.error(e.getMessage());
-			return new ResponseEntity<>(e.getMessage(), HttpStatus.NO_CONTENT);
-		}
-	}
-		
+	
 	
 }

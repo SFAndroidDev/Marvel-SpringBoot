@@ -24,21 +24,19 @@ public class User {
 	@Column(name= "email")
 	private String email;
 	
-	/*@OneToMany
-	private List<Superteam> superteams = new ArrayList<>();
-	*/
 	
 	public User() {
 		super();
 	}
 
-	public User(Long id, String firstname, String lastname, String email /*, List<Superteam> superteams*/) {
+
+	public User(Long id, String firstname, String lastname, String email) {
 		super();
 		this.id = id;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.email = email;
-		//this.superteams = superteams;
+		
 	}
 
 
@@ -80,23 +78,6 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-
-
-
-	/*public List<Superteam> getSuperteams() {
-		return superteams;
-	}
-
-
-
-
-	public void setSuperteams(List<Superteam> superteams) {
-		this.superteams = superteams;
-	}*/
-
-
-
 
 
 
